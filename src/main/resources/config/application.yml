@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/?user=root
+    username: root
+    password: zyt646997
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+#配置log4j2的配置文件地址
+logging:
+  config: classpath:config/Log4j2.xml
