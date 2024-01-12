@@ -12,3 +12,6 @@ mybatis-plus:
 #配置log4j2的配置文件地址
 logging:
   config: classpath:config/Log4j2.xml
+
+server:
+  port: 8999
