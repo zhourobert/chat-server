@@ -1,6 +1,6 @@
-package com.qf.controller;
+package com.qf.chat.controller;
 
-import com.qf.commons.returnresult.Resp;
+import com.qf.chat.commons.returnresult.Resp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

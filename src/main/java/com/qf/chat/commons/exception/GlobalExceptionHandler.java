@@ -1,7 +1,7 @@
-package com.qf.commons.exception;
+package com.qf.chat.commons.exception;
 
-import com.qf.commons.returnresult.Resp;
-import com.qf.commons.returnresult.RespCode;
+import com.qf.chat.commons.returnresult.Resp;
+import com.qf.chat.commons.returnresult.RespCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

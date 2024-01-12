@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.chat.dao.FriendRequestDao">
+
+    <resultMap type="com.qf.chat.entity.FriendRequest" id="FriendRequestMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uId" column="u_id" jdbcType="INTEGER"/>
+        <result property="fId" column="f_id" jdbcType="INTEGER"/>
+        <result property="notes" column="notes" jdbcType="VARCHAR"/>
+        <result property="requestMsg" column="request_msg" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into my_chat.friend_request(u_idf_idnotesrequest_msgcreate_timeupdate_timestatusdel_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.uId}#{entity.fId}#{entity.notes}#{entity.requestMsg}#{entity.createTime}#{entity.updateTime}#{entity.status}#{entity.delFlag})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into my_chat.friend_request(u_idf_idnotesrequest_msgcreate_timeupdate_timestatusdel_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uId}#{entity.fId}#{entity.notes}#{entity.requestMsg}#{entity.createTime}#{entity.updateTime}#{entity.status}#{entity.delFlag})
+        </foreach>
+        on duplicate key update
+u_id = values(u_id) f_id = values(f_id) notes = values(notes) request_msg = values(request_msg) create_time = values(create_time) update_time = values(update_time) status = values(status) del_flag = values(del_flag)     </insert>
+
+</mapper>
+

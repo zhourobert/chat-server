@@ -1,4 +1,4 @@
-package com.qf.commons.returnresult;
+package com.qf.chat.commons.returnresult;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
