@@ -15,3 +15,7 @@ logging:
 
 server:
   port: 8999
+
+
+file:
+  save: D:\zhouyuntao\Qianfeng Project\homework\img

@@ -8,8 +8,10 @@ public enum RespCode {
     SUCC(200,"方法执行成功"),
     ERROR(500, "失败"),
     NO_POWER(406, "权限不足"),
-    HOUSE_EXISTE(407, "房屋标题已经存在"),
-    HOUSE_NO_HEGE(408, "房屋资质不合格");
+    USER_EXIST(407, "不存在该用户"),
+    HOUSE_NO_HEGE(408, "房屋资质不合格"),
+    REPEAT_USER(409,"用户名重复");
+
 
     private final Integer code;
     private final String msg;
