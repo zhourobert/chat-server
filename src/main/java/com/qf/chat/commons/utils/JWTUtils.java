@@ -68,17 +68,4 @@ public class JWTUtils {
         }
     }
 
-    public static void main(String[] args) {
-//        String userName = "张三";
-//        String token = JwtUtils.createJwtToken()
-//                .add("name", userName)
-//                .add("age", 20)
-//                .build();
-//        System.out.println(token);
-
-        //验签
-//        String token = "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoi5byg5LiJIiwiZXhwIjoxNzA1MDUzNDMwLCJpYXQiOjE3MDUwNDYyMzAsImFnZSI6MjB9.moZlN6da4b2SUuYSrFwFzY5tdi6HC9pU7AGGOGDJCa0";
-//        String name = JwtUtils.parseJwtToken(token, "name");
-//        System.out.println(name);
-    }
 }

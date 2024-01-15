@@ -50,8 +50,8 @@ public class UserController extends BaseController<UserService> {
      * @param loginVo
      * @return
      */
-    @PostMapping("/login")
-    public Resp login(@RequestBody LoginVo loginVo){
+    @GetMapping("/login")
+    public Resp login(LoginVo loginVo){
         log.debug("后端获取loginVo：{}",loginVo);
         User user = getService().query()
                 .eq("username", loginVo.getUsername())
@@ -68,8 +68,20 @@ public class UserController extends BaseController<UserService> {
 
             return Resp.succ(jwtToken);
         }else {
-            return Resp.fail(RespCode.USER_EXIST);
+            return Resp.fail(RespCode.USER_NO_EXIST);
         }
+    }
+
+    @GetMapping("/getHeader")
+    public Resp getHeader(String username){
+        log.debug("后端获取username：{}",username);
+        User user=getService().query()
+                .eq("username",username)
+                .one();
+        if (user!=null){
+            return Resp.succ(user.getHeader());
+        }
+        return Resp.fail(RespCode.USER_NO_EXIST);
     }
 
     /**
