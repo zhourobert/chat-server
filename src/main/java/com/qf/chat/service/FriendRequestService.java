@@ -11,5 +11,6 @@ import com.qf.chat.entity.FriendRequest;
  */
 public interface FriendRequestService extends IService<FriendRequest> {
 
+    boolean sendFriendRequest(FriendRequest friendRequest);
 }
 

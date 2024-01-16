@@ -11,6 +11,8 @@ import com.qf.chat.entity.User;
 import com.qf.chat.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 用户表(User)表服务实现类
  *
@@ -31,6 +33,18 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         //拼音填入
         entity.setSpell(PinyinUtil.getPinyin(entity.getNickname(),""));
         return super.save(entity);
+    }
+
+
+    @Override
+    public List<User> queryUserListByNameNicknameAndSpell(String searchText) {
+        if (searchText.isEmpty()) return null;
+        return query().like("username",searchText)
+                .or()
+                .like("nickname",searchText)
+                .or()
+                .like("spell",searchText)
+                .list();
     }
 }
 

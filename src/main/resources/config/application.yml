@@ -3,6 +3,13 @@ spring:
     url: jdbc:mysql://localhost:3306/my_chat?user=root
     username: root
     password: zyt646997
+  mail:
+    host: smtp.163.com
+    username: zhou19970829yuntao@163.com
+    password: TEEZQGEKBERVTDXV
+    protocol: smtps
+    properties:
+      "mail.smtp.auth": true
 
 mybatis-plus:
   configuration:
