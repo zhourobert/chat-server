@@ -14,7 +14,8 @@ public enum RespCode {
     WRONG_MAIL_ADDRESS(411,"邮箱地址错误"),
     WRONG_CODE(412,"验证码错误"),
     DUPLICATE_PWD(413,"密码重复错误"),
-    LOGIN_ERROR(414,"账号或密码错误");
+    LOGIN_ERROR(414,"账号或密码错误"),
+    WRONG_TOKEN(415,"令牌失效或不正确");
 
 
     private final Integer code;

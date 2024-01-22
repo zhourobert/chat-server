@@ -3,6 +3,8 @@ package com.qf.chat.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.chat.entity.FriendRequest;
 
+import java.util.List;
+
 /**
  * 好友申请表(FriendRequest)表服务接口
  *
@@ -11,6 +13,8 @@ import com.qf.chat.entity.FriendRequest;
  */
 public interface FriendRequestService extends IService<FriendRequest> {
 
-    boolean sendFriendRequest(FriendRequest friendRequest);
+    void sendFriendRequest(FriendRequest friendRequest);
+
+    List<FriendRequest> getFriendRequestList(Integer uid);
 }
 

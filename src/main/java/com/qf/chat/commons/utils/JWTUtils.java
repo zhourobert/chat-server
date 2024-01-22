@@ -1,20 +1,28 @@
 package com.qf.chat.commons.utils;
 
+import com.qf.chat.commons.exception.ServiceException;
+import com.qf.chat.commons.returnresult.RespCode;
+import com.qf.chat.entity.User;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class JWTUtils {
 
     //密钥
     private static String secretKey = "f4a29eb6-4bb5-4c3a-bc9a-825ee55a2f02";
-    //令牌有效期
+    //令牌有效期 2天
     private static long ttl = 1000 * 60 * 60 * 2;
 //    private static long ttl = 1000 * 10;
 
-    //补签的有效时间
+    //补签的有效时间 4天
     private static long flag = 1000 * 60 * 60 * 4;
 
     /**
@@ -66,6 +74,32 @@ public class JWTUtils {
         } catch (Exception e) {
             return null;
         }
+    }
+    public static String getTokenFromHeader(){
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        return request.getHeader("Token");
+
+    }
+
+    public static boolean verify(Integer id){
+        String token=getTokenFromHeader();
+
+        Integer id1 = parseJwtToken(token, "id");
+        System.out.println("后台获取jwt令牌为"+id1);
+        if(id1==null) return true;
+        if (Objects.equals(id, id1)) return true;
+        return false;
+    }
+
+    public static Integer getId(){
+        String token=getTokenFromHeader();
+        //解析令牌
+        Integer uid = parseJwtToken(token, "id");
+        if (uid == null) {
+            throw new ServiceException(RespCode.WRONG_TOKEN);
+        }
+        return uid;
     }
 
 }

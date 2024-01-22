@@ -1,9 +1,15 @@
 package com.qf.chat.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qf.chat.commons.base.BaseEntity;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -17,16 +23,32 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 @Data
 @Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class FriendRequest extends BaseEntity {
 
 //申请人id
+    @NotNull
+    @JsonProperty
     private Integer uId;
 //被申请人id
+    @NotNull
+    @JsonProperty
     private Integer fId;
 //申请人对被申请人的备注
     private String notes;
 //验证消息
     private String requestMsg;
+    @TableField(exist = false)
+    private User friendInfo;
+
+
+    public FriendRequest exchange(){
+        return new FriendRequest(this.fId,this.uId, this.notes,this.requestMsg,this.friendInfo);
+    }
+    public FriendRelation getRelation(){
+        return new FriendRelation(this.uId,this.fId,this.notes);
+    }
 
 
 

@@ -14,6 +14,31 @@
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap type="com.qf.chat.entity.FriendRequest" id="FriendRequestMapAddUser">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uId" column="u_id" jdbcType="INTEGER"/>
+        <result property="fId" column="f_id" jdbcType="INTEGER"/>
+        <result property="notes" column="notes" jdbcType="VARCHAR"/>
+        <result property="requestMsg" column="request_msg" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        <association property="friendInfo" javaType="com.qf.chat.entity.User">
+            <id column="friendInfo.id" property="id"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="header" column="header" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="spell" column="spell" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+
     <!-- 批量插入 -->
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into my_chat.friend_request(u_idf_idnotesrequest_msgcreate_timeupdate_timestatusdel_flag)
@@ -32,5 +57,13 @@
         on duplicate key update
 u_id = values(u_id) f_id = values(f_id) notes = values(notes) request_msg = values(request_msg) create_time = values(create_time) update_time = values(update_time) status = values(status) del_flag = values(del_flag)     </insert>
 
+    
+    <select id="queryMyRequest" resultMap="FriendRequestMapAddUser">
+        select fr.id,u_id,f_id,notes,request_msg,u.id,u.header,u.status,u.nickname
+        from friend_request fr join user u on u_id=u.id
+        where f_id=#{uid}
+        order by
+            fr.create_time desc;
+    </select>
 </mapper>
 

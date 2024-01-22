@@ -136,6 +136,14 @@ public class UserController extends BaseController<UserService> {
         List<User> users=getService().queryUserListByNameNicknameAndSpell(searchText);
         return Resp.succ(users);
     }
+
+
+    @GetMapping("/verifyToken")
+    public Resp verifyToken(Integer id){
+        log.debug("后端获取id：{}",id);
+        if(JWTUtils.verify(id)) return Resp.succ();
+        return Resp.fail(RespCode.WRONG_TOKEN);
+    }
     /**
      * 登陆并且返回jwt令牌
      * @param

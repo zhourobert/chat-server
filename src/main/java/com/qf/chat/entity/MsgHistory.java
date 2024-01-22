@@ -2,6 +2,7 @@ package com.qf.chat.entity;
 
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qf.chat.commons.base.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -20,8 +21,10 @@ import java.io.Serializable;
 public class MsgHistory  extends BaseEntity {
 
 //发送者id
+    @JsonProperty
     private Integer uId;
 //接受者id
+    @JsonProperty
     private Integer fId;
 //消息的内容
     private String msg;

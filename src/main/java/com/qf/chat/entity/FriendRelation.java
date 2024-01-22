@@ -2,8 +2,11 @@ package com.qf.chat.entity;
 
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qf.chat.commons.base.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -18,11 +21,15 @@ import java.util.Date;
 @SuppressWarnings("serial")
 @Data
 @Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class FriendRelation  extends BaseEntity {
 
 //用户id
+    @JsonProperty
     private Integer uId;
 //好友id
+    @JsonProperty
     private Integer fId;
 //当前用户对好友的备注信息
     private String notes;
