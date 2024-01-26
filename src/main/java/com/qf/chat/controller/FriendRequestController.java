@@ -53,8 +53,7 @@ public class FriendRequestController extends BaseController<FriendRequestService
     @PatchMapping ("/patchRequest")
     public Resp patchRequest(@RequestBody HandleRequestVo handleRequestVo){
         log.debug("后端进入patchRequest获取要修改的HandleRequestVo：{}",handleRequestVo);
-        getService().update().set("status",handleRequestVo.getStatusCode())
-                .eq("id",handleRequestVo.getFriendRequestId()).update();
+        getService().handleRequest(handleRequestVo);
         return Resp.succ();
     }
 }

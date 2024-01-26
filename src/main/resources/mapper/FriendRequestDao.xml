@@ -59,7 +59,7 @@ u_id = values(u_id) f_id = values(f_id) notes = values(notes) request_msg = valu
 
     
     <select id="queryMyRequest" resultMap="FriendRequestMapAddUser">
-        select fr.id,u_id,f_id,notes,request_msg,u.id,u.header,u.status,u.nickname
+        select fr.id,u_id,f_id,notes,fr.status,request_msg,u.id,u.header,u.nickname
         from friend_request fr join user u on u_id=u.id
         where f_id=#{uid}
         order by

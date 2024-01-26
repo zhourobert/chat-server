@@ -84,10 +84,8 @@ public class JWTUtils {
 
     public static boolean verify(Integer id){
         String token=getTokenFromHeader();
-
         Integer id1 = parseJwtToken(token, "id");
         System.out.println("后台获取jwt令牌为"+id1);
-        if(id1==null) return true;
         if (Objects.equals(id, id1)) return true;
         return false;
     }

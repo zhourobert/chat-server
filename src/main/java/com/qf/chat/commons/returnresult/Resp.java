@@ -12,6 +12,7 @@ public class Resp<T> implements Serializable {
     private String msg;
     private T data;
 
+
     public static <T> Resp<T> succ(T data){
         return new Resp<T>()
                 .setCode(RespCode.SUCC.getCode())

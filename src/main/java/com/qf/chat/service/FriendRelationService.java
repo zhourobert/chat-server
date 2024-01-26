@@ -10,6 +10,6 @@ import com.qf.chat.entity.FriendRelation;
  * @since 2024-01-12 12:12:07
  */
 public interface FriendRelationService extends IService<FriendRelation> {
-
+    void beFriending(Integer uid,Integer fid,Integer code);
 }
 

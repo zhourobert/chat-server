@@ -1,8 +1,11 @@
 package com.qf.chat.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.chat.commons.utils.JWTUtils;
 import com.qf.chat.dao.FriendRequestDao;
+import com.qf.chat.entity.FriendRelation;
 import com.qf.chat.entity.FriendRequest;
+import com.qf.chat.entity.vo.HandleRequestVo;
 import com.qf.chat.service.FriendRelationService;
 import com.qf.chat.service.FriendRequestService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,7 @@ import java.util.List;
 public class FriendRequestServiceImpl extends ServiceImpl<FriendRequestDao, FriendRequest> implements FriendRequestService {
     @Autowired
     private FriendRelationService friendRelationService;
+
     @Transactional
     @Override
     public void sendFriendRequest(FriendRequest friendRequest) {
@@ -31,18 +35,18 @@ public class FriendRequestServiceImpl extends ServiceImpl<FriendRequestDao, Frie
                 .eq("f_id", friendRequest.getFId())
                 .one();
 
-        System.out.println("111111;"+friendRequest.getNotes());
-        if (request!=null){//如果有则更新这一条数据
-            update().set("notes",friendRequest.getNotes())
-                    .set("request_msg",friendRequest.getRequestMsg())
+        System.out.println("111111;" + friendRequest.getNotes());
+        if (request != null) {//如果有则更新这一条数据
+            update().set("notes", friendRequest.getNotes())
+                    .set("request_msg", friendRequest.getRequestMsg())
                     .eq("u_id", friendRequest.getUId())
                     .eq("f_id", friendRequest.getFId())
                     .update();
-            friendRelationService.update().set("notes",friendRequest.getNotes())
+            friendRelationService.update().set("notes", friendRequest.getNotes())
                     .eq("u_id", friendRequest.getUId())
                     .eq("f_id", friendRequest.getFId())
                     .update();
-        }else {//如果无则新建一条数据
+        } else {//如果无则新建一条数据
             save(friendRequest);
             friendRelationService.save(friendRequest.getRelation());
         }
@@ -52,6 +56,20 @@ public class FriendRequestServiceImpl extends ServiceImpl<FriendRequestDao, Frie
     public List<FriendRequest> getFriendRequestList(Integer uid) {
         return getBaseMapper().queryMyRequest(uid);
 
+    }
+
+    @Transactional
+    @Override
+    public void handleRequest(HandleRequestVo handleRequestVo) {
+        update().set("status", handleRequestVo.getStatusCode())
+                .eq("id", handleRequestVo.getFriendRequestId()).update();
+
+        FriendRequest req = query().eq("id", handleRequestVo.getFriendRequestId()).one();
+        Integer uid = JWTUtils.getId();
+        Integer fid = req.getUId();
+        //检查请求是同意还是拒绝
+        Integer code = handleRequestVo.getStatusCode();
+        friendRelationService.beFriending(uid, fid, code);
     }
 }
 

@@ -2,6 +2,7 @@ package com.qf.chat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.chat.entity.FriendRequest;
+import com.qf.chat.entity.vo.HandleRequestVo;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface FriendRequestService extends IService<FriendRequest> {
     void sendFriendRequest(FriendRequest friendRequest);
 
     List<FriendRequest> getFriendRequestList(Integer uid);
+
+    void handleRequest(HandleRequestVo handleRequestVo);
 }
 
