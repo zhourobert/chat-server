@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qf.chat.dao.MsgHistoryDao">
+<mapper namespace="com.robertZhou.chat.dao.MsgHistoryDao">
 
-    <resultMap type="com.qf.chat.entity.MsgHistory" id="MsgHistoryMap">
+    <resultMap type="com.robertZhou.chat.entity.MsgHistory" id="MsgHistoryMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="uId" column="u_id" jdbcType="INTEGER"/>
         <result property="fId" column="f_id" jdbcType="INTEGER"/>
@@ -12,6 +12,10 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="FriendAndLastMsgVo" type="com.robertZhou.chat.entity.vo.FriendAndLastMsgVo">
+        <result property="fId" column="f_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 批量插入 -->
@@ -32,5 +36,10 @@
         on duplicate key update
 u_id = values(u_id) f_id = values(f_id) msg = values(msg) type = values(type) create_time = values(create_time) update_time = values(update_time) status = values(status) del_flag = values(del_flag)     </insert>
 
+    <select id="loadFriendsAndLastMsgs" resultMap="FriendAndLastMsgVo">
+        select fr.f_id,fr.notes,u.nickname,u.header
+        from friend_relation fr join user u on fr.f_id=u.id
+        where fr.u_id=#{id} and fr.status=1
+    </select>
 </mapper>
 

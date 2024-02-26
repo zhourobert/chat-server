@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev2
   datasource:
     url: jdbc:mysql://localhost:3306/my_chat?user=root
     username: root
@@ -15,6 +17,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+  type-aliases-package: com.robertZhou.chat.entity
 
 #配置log4j2的配置文件地址
 logging:
@@ -22,7 +25,7 @@ logging:
 
 server:
   port: 8999
+  ws:
+    port: 9999
 
 
-file:
-  save: D:\zhouyuntao\Qianfeng Project\homework\img
